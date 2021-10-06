@@ -11,7 +11,7 @@ int main()
 
     string txt = "ABABABACABABABAC";
     int  len_txt = txt.size();
-    cout << "Длина строки " << len_txt << endl;
+    cout << "Длина строки  " << len_txt << endl;
     while (K < 1 || K > len_txt / 2) {
         cout << "Введите искомую кратность строки (целое К от 1 до половины длины строки): ";
         cin >> K;
