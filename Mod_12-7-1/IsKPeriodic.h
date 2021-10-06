@@ -3,35 +3,19 @@
 
 using namespace std;
 
-int IsKPeriodic(string txt)
-//  Поиск числа K, которому кратна строка txt;
+bool IsKPeriodic(string txt, int K)
+//  Проверка кратна ли строка txt числу К
 {
     setlocale(LC_ALL, "");
 
-    bool kratn = true;                                 // признак обнаружения кратности
-    bool pr = true;                                    // признак необходимости вспомогательной печати
-
     int  len_txt = txt.size();
 
-    for (int K = 1; K <= len_txt / 2; K++) {           // К не может быть больше половины длины строки
-        if (len_txt % K == 0) {                        // Проверяем на кратность только тогда, когда длина строки делится на К
-            if (pr) cout << K << endl;
-            kratn = true;
-            for (int j = 1; j < len_txt / K; j++) {    // Для каждого j-го подмассива длиной K, начиная со 2-го,
-                for (int i = 0; i < K; i++) {
-                    if (pr) cout << "txt[" << i + j * K << "] = " << txt[i + j * K] << "      " << "txt[" << i << "] = " << txt[i] << endl;
+    if (len_txt % K != 0) return false;                       // Строка не может быть кратна К, если длина строки не делится на К        
 
-                    if (txt[i + j * K] != txt[i]) {    // проверяем, равен ли он соответствующему элементу первого подмассива длиной К
-                        kratn = false; 
-                        if (pr) cout << "false" << endl;
-                        K = i + j * K;                 // Пропускаем для скорости проверки кратности меньшей индекса первого расхождения со строкой повторов
-                    }
-                    if (kratn == false) break;
-                }
-                if (kratn == false) break;
-            }
-            if (kratn == true) return K;               // Возвращаем значение кратности
-        }
-    }       
-    if (kratn == false) return 0;                      // Кратность не найдена
+    for (int j = 1; j < len_txt / K; j++) {                   // Для каждого j-го подмассива длиной K, начиная со 2-го,
+         for (int i = 0; i < K; i++) { 
+             if (txt[i + j * K] != txt[i]) return false;      // проверяем, равен ли он соответствующему элементу первого подмассива длиной К
+         }
+    }
+    return true;                       
 };
